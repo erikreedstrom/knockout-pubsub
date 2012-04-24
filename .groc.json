@@ -1,0 +1,11 @@
+{
+    "very-verbose": true,
+    "github": true,
+    "glob": [
+        "README",
+        "src/**/*.coffee"
+    ],
+    "except": [
+
+    ]
+}
