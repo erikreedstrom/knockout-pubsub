@@ -19,7 +19,7 @@ We will see that we can meet this requirement using **PubSub** in the following 
 
 #### Publishing
 
-`ko.observable`s `ko.observableArray`s and `ko.computed`s can all publish their changes with a simple extend command:
+`ko.observable`, `ko.observableArray`, and `ko.computed` can all publish their changes with a simple extend command:
 
 	ko.observable(value).extend({publish: "VM.observable"})
 
@@ -58,7 +58,7 @@ Continuing the use case described previously, we know we will need to recieve no
 
 #### Subscribing
 
-`ko.observable`s and `ko.observableArray`s can subscribe to any number of published observables using the following command:
+`ko.observable` and `ko.observableArray` can subscribe to any number of published observables using the following command:
 
 	ko.observable(value).extend({subscribe: "VM.observable"})
 
