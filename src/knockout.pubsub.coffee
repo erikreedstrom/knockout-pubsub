@@ -38,14 +38,14 @@ ko.extenders.subscribe = (target, key) ->
         target(newValue[0..])
     else
       # Update value.
-      target(newValue)
+      target(newValue) if target() isnt newValue
   )
 
   if(isArray)
     # Clone array so operations to the underlying array do not affect the subscribed value.
     target(published()[0..]) unless published().length is 0
   else
-    target(published()) if published()
+    target(published()) if published() and target() isnt published()
 
   # return target
   target
@@ -63,16 +63,7 @@ compareArrays = (list1, list2) ->
   # Return true if both lengths are 0.
   return true if list1.length is 0 and list2.length is 0
 
-  # Create lookup index. Allows number of operations to be n+m instead of n*m.
-  lookup = {}
-
-  # Assign all items of `list2` to the index.
-  for j of list2
-    lookup[list2[j]] = list2[j]
-
-  # Itterate over all items and look for them in the index.
-  for i of list1
-    if typeof lookup[list1[i]] is "undefined" and list1[i] isnt undefined
-      return false
+  # Return false if any element in list2 doesn't equal the corresponding element in list1
+  return false for element, i in list2 when list1[i] isnt element
 
   true

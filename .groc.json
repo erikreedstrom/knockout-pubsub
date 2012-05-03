@@ -2,7 +2,7 @@
     "very-verbose": true,
     "github": true,
     "glob": [
-        "README",
+        "README.md",
         "src/**/*.coffee"
     ],
     "except": [

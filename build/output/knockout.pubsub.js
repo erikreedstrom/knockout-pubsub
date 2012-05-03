@@ -29,7 +29,9 @@ ko.extenders.subscribe = function(target, key) {
                 return target(newValue.slice(0));
             }
         } else {
-            return target(newValue);
+            if (target() !== newValue) {
+                return target(newValue);
+            }
         }
     });
     if (isArray) {
@@ -37,14 +39,14 @@ ko.extenders.subscribe = function(target, key) {
             target(published().slice(0));
         }
     } else {
-        if (published()) {
+        if (published() && target() !== published()) {
             target(published());
         }
     }
     return target;
 };
 compareArrays = function(list1, list2) {
-    var i, j, lookup;
+    var element, i, _len;
     if (list1 === list2) {
         return true;
     }
@@ -57,12 +59,9 @@ compareArrays = function(list1, list2) {
     if (list1.length === 0 && list2.length === 0) {
         return true;
     }
-    lookup = {};
-    for (j in list2) {
-        lookup[list2[j]] = list2[j];
-    }
-    for (i in list1) {
-        if (typeof lookup[list1[i]] === "undefined" && list1[i] !== void 0) {
+    for (i = 0, _len = list2.length; i < _len; i++) {
+        element = list2[i];
+        if (list1[i] !== element) {
             return false;
         }
     }
